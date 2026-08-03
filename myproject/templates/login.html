@@ -196,6 +196,31 @@
           margin: 30px auto 0 auto;
         }
       }
+
+                .messages-wrapper {
+        margin-bottom: 18px;
+      }
+
+      .alert-custom {
+        padding: 12px 16px;
+        border-radius: 10px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+        border: 1px solid transparent;
+      }
+
+      .alert-custom.alert-success {
+        background-color: #eafaf0;
+        color: #1e9e5e;
+        border-color: #b7ebce;
+      }
+
+      .alert-custom.alert-error {
+        background-color: #fdeeee;
+        color: #d9463f;
+        border-color: #f7c6c4;
+      }
     </style>
 </head>
 
@@ -220,6 +245,16 @@
     <div class="login-card">
       <h3>Bem-vindo de volta</h3>
       <p class="subtitle">Insira seus dados para acessar sua conta.</p>
+
+          {% if messages %}
+              <div class="messages-wrapper">
+              {% for message in messages %}
+                <div class="alert-custom alert-{{ message.tags }}">
+                {{ message }}
+                </div>
+              {% endfor %}
+              </div>
+          {% endif %}      
 
       <form method="POST" action="">
           {% csrf_token %}

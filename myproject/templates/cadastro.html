@@ -184,6 +184,31 @@
         margin: 30px auto 0 auto;
       }
     }
+
+        .messages-wrapper {
+      margin-bottom: 18px;
+    }
+
+    .alert-custom {
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+      border: 1px solid transparent;
+    }
+
+    .alert-custom.alert-success {
+      background-color: #eafaf0;
+      color: #1e9e5e;
+      border-color: #b7ebce;
+    }
+
+    .alert-custom.alert-error {
+      background-color: #fdeeee;
+      color: #d9463f;
+      border-color: #f7c6c4;
+    }
   </style>
 </head>
 
@@ -201,38 +226,47 @@
 
     </div>
     <!-- Card de cadastro -->
-    <div class="login-card">
-      <h3>Cadastre-se</h3>
-      <p class="subtitle">Preencha os dados abaixo para criar sua conta.</p>
+      <div class="login-card">
+          <h3>Cadastre-se</h3>
+          <p class="subtitle">Preencha os dados abaixo para criar sua conta.</p>
 
-      <form method="POST" action="">
-        {% csrf_token %}
+          {% if messages %}
+              <div class="messages-wrapper">
+              {% for message in messages %}
+                <div class="alert-custom alert-{{ message.tags }}">
+                {{ message }}
+                </div>
+              {% endfor %}
+              </div>
+          {% endif %}
 
-        <label for="nome" class="form-label">Nome Completo</label>
-        <input type="text" class="form-control" id="nome" placeholder="Digite seu nome completo" 
-        required name="name">
+          <form method="POST" action="">
+          {% csrf_token %}
 
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="seuemail@exemplo.com" required
-        name="email" >
+            <label for="nome" class="form-label">Nome Completo</label>
+            <input type="text" class="form-control" id="nome" placeholder="Digite seu nome completo" 
+            required name="name">
 
-        <label for="password" class="form-label">Senha</label>
-        <input type="password" class="form-control" id="password" placeholder="Digite sua senha" required
-        name="password" >
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="seuemail@exemplo.com" required
+            name="email" >
 
-        <label for="idade" class="form-label">Idade</label>
-        <input type="number" class="form-control" id="idade" placeholder="Digite sua idade" min="0" required
-        name="age">
+            <label for="password" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="password" placeholder="Digite sua senha" required
+            name="password" >
 
-        <button type="submit" class="btn btn-login">Cadastrar</button>
+            <label for="idade" class="form-label">Idade</label>
+            <input type="number" class="form-control" id="idade" placeholder="Digite sua idade" min="0" required
+            name="age">
 
-      </form>
+            <button type="submit" class="btn btn-login">Cadastrar</button>
 
-      <p class="signup-text">
-        Já tem uma conta? <a href="login.html">Entrar</a>
-      </p>
-    </div>
+          </form>
 
+          <p class="signup-text">
+          Já tem uma conta? <a href="login.html">Entrar</a>
+          </p>
+      </div>
   </div>
 
 </body>
