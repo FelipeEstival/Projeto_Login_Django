@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Person
+from django.contrib.auth.hashers import make_password, check_password
 
 # Create your views here.
 def home(request):
@@ -12,7 +13,7 @@ def login(request):
 
     usuario = Person.objects.filter(email = email_digitado).first()
     if usuario:
-        if usuario.password == password_digitado:
+        if check_password(password_digitado, usuario.password): 
             request.session["usuario_id"] = usuario.id
             return redirect('screen')
         else:
@@ -55,7 +56,7 @@ def cadastro(request):
 
         try:
             Usuario = Person(
-                name = name_digitado, email = email_digitado, password = password_digitado, age = age_digitado
+                name = name_digitado, email = email_digitado, password = make_password(password_digitado), age = age_digitado
             )
             Usuario.save()
         except: 
