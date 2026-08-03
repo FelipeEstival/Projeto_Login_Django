@@ -5,4 +5,4 @@ class Person(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField()
     password = models.CharField()
-    idade = models.IntegerField()
+    age = models.IntegerField()
