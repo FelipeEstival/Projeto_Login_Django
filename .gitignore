@@ -1,0 +1,36 @@
+```gitignore
+# Ambiente virtual
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Variáveis de ambiente
+.env
+
+# Arquivos do VS Code
+.vscode/
+
+# Arquivos do macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Arquivos de testes
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Cache do mypy
+.mypy_cache/
+
+# Arquivos de distribuição
+build/
+dist/
+*.egg-info/
