@@ -7,6 +7,18 @@ def home(request):
     return render(request, 'home.html')
 
 def login(request):
+    email_digitado = request.POST.get("email")
+    password_digitado = request.POST.get("password")
+
+    usuario = Person.objects.filter(email = email_digitado).first()
+    if usuario:
+        if usuario.password == password_digitado:
+            print("Login correto")
+        else:
+            print("Senha incorreta")
+    else:
+        print("Email não encontrado")
+
     return render(request, 'login.html')
 
 def cadastro(request):
