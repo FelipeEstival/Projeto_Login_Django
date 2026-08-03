@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-start: #6C63FF;
+      --brand-end: #8A7CFF;
+      --brand-dark: #4B3FE0;
+    }
+
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #1b1440 0%, #4B3FE0 45%, #8A7CFF 100%);
+      padding: 0;
+      margin: 0;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Formas decorativas de fundo */
+    body::before {
+      content: "";
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 400px;
+      height: 400px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 50%;
+    }
+
+    body::after {
+      content: "";
+      position: absolute;
+      bottom: -160px;
+      left: -100px;
+      width: 350px;
+      height: 350px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+    }
+
+    .navbar-custom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 60px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .btn-logout {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 10px;
+      padding: 10px 22px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #fff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease;
+    }
+
+    .btn-logout:hover {
+      background: rgba(255, 255, 255, 0.22);
+      color: #fff;
+    }
+
+    .main-content {
+      position: relative;
+      z-index: 2;
+      padding: 40px 60px 60px 60px;
+    }
+
+    .greeting-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .greeting-subtitle {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 50px;
+    }
+
+    /* Cards de informação estilo "glass" */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+      max-width: 760px;
+    }
+
+    .info-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 18px;
+      padding: 26px 28px;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .info-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .info-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .info-card .info-label {
+      display: block;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.65);
+      font-weight: 500;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .info-card .info-value {
+      display: block;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #fff;
+      word-break: break-word;
+    }
+
+    @media (max-width: 700px) {
+
+      .navbar-custom,
+      .main-content {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+
+      .greeting-title {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="navbar-custom">
+    <div class="brand">
+      <span class="brand-name">Projeto Login Estival</span>
+    </div>
+
+    <a href="{% url 'logout' %}" class="btn-logout">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H9" stroke="white" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M16 17L21 12L16 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M21 12H9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      Sair
+    </a>
+  </div>
+
+  <div class="main-content">
+    <h1 class="greeting-title">Olá, {{ usuario.name }} </h1>
+    <p class="greeting-subtitle">Você está logado.</p>
+
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 6H20V18H4V6Z" stroke="white" stroke-width="2" stroke-linejoin="round" />
+            <path d="M4 7L12 13L20 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <span class="info-label">Email</span>
+        <span class="info-value">{{ usuario.email }}</span>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="8" r="4" stroke="white" stroke-width="2" />
+            <path d="M4 20C4 16.6863 7.58172 14 12 14C16.4183 14 20 16.6863 20 20" stroke="white" stroke-width="2"
+              stroke-linecap="round" />
+          </svg>
+        </div>
+        <span class="info-label">Idade</span>
+        <span class="info-value">{{ usuario.age }}</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

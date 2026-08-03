@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Person
 
@@ -13,11 +13,10 @@ def login(request):
     usuario = Person.objects.filter(email = email_digitado).first()
     if usuario:
         if usuario.password == password_digitado:
-            print("Login correto")
+            request.session["usuario_id"] = usuario.id
+            return redirect('screen')
         else:
-            print("Senha incorreta")
-    else:
-        print("Email não encontrado")
+            messages.error(request, "Senha incorreta, tente novamente")
 
     return render(request, 'login.html')
 
@@ -68,3 +67,15 @@ def cadastro(request):
         return render(request, 'cadastro.html', context)
 
     return render(request, 'cadastro.html')
+
+def screen(request):
+    usuario_id = request.session.get("usuario_id")
+    usuario = Person.objects.get(id=usuario_id)
+
+    return render(request, "screen.html", {
+        "usuario": usuario
+    })
+
+def logout(request):
+    request.session.flush()
+    return redirect("login")
