@@ -80,3 +80,35 @@ def screen(request):
 def logout(request):
     request.session.flush()
     return redirect("login")
+
+def esqueci_minha_senha(request):
+    email_digitado = request.POST.get("email")
+    usuario = Person.objects.filter(email = email_digitado).first()
+
+    if request.method == "POST":
+        if usuario: 
+                request.session["usuario_id"] = usuario.id
+                return redirect('recriar_senha')
+        else:
+            messages.error(request, "Email não encontrado, tente novamente")
+            return render(request, 'esqueci_senha.html')
+
+    return render(request, 'esqueci_senha.html')
+    
+def recriar_senha(request):
+    usuario_id = request.session.get("usuario_id")
+    usuario = Person.objects.filter(id=usuario_id).first()
+
+    if usuario:
+        if request.method == "POST":
+                nova_senha = request.POST.get("nova_senha")
+                confirmar_senha = request.POST.get("confirmar_senha")
+
+                if nova_senha == confirmar_senha:
+                        usuario.password = make_password(nova_senha)
+                        usuario.save()
+                        messages.success(request, "Senha cadastrada com sucesso.")
+                else:
+                    messages.error(request, "Senha não compatível")
+                    
+    return render(request, 'recriar_senha.html')

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esqueci minha senha</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-start: #6C63FF;
+      --brand-end: #8A7CFF;
+      --brand-dark: #4B3FE0;
+    }
+
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--brand-start), var(--brand-end));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .login-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      min-height: 620px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .left-side {
+      flex: 1;
+      color: #fff;
+      padding: 40px 60px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 60px;
+    }
+
+    .brand-icon {
+      width: 42px;
+      height: 42px;
+      border: 2px solid #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-name {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .left-side h1 {
+      font-weight: 700;
+      font-size: 2.6rem;
+      margin-bottom: 18px;
+    }
+
+    .left-side h2 {
+      font-weight: 500;
+      font-size: 1.2rem;
+      margin-bottom: 18px;
+    }
+
+    .left-side p {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      max-width: 380px;
+      line-height: 1.6;
+    }
+
+    /* Card central */
+    .login-card {
+      background: #fff;
+      border-radius: 24px;
+      padding: 50px 45px;
+      box-shadow: 0 25px 60px rgba(38, 27, 105, 0.35);
+      width: 100%;
+      max-width: 420px;
+      margin-left: auto;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      color: #8b87a3;
+      text-decoration: none;
+      margin-bottom: 24px;
+    }
+
+    .back-link:hover {
+      color: var(--brand-start);
+    }
+
+    .icon-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand-start), var(--brand-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .login-card h3 {
+      font-weight: 700;
+      color: #2b2450;
+      margin-bottom: 6px;
+    }
+
+    .login-card .subtitle {
+      color: #8b87a3;
+      font-size: 0.9rem;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .form-label {
+      font-size: 0.85rem;
+      color: #4b4368;
+      font-weight: 500;
+    }
+
+    .form-control {
+      background-color: #f5f4fb;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    .form-control:focus {
+      background-color: #f0eefc;
+      box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+    }
+
+    .btn-login {
+      background: linear-gradient(135deg, var(--brand-start), var(--brand-dark));
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #fff;
+      width: 100%;
+      transition: opacity 0.2s ease;
+      margin-top: 6px;
+    }
+
+    .btn-login:hover {
+      opacity: 0.9;
+      color: #fff;
+    }
+
+    .signup-text {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b6685;
+      margin-top: 28px;
+    }
+
+    .signup-text a {
+      color: var(--brand-start);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .signup-text a:hover {
+      text-decoration: underline;
+    }
+
+    /* Mensagens do Django */
+    .messages-wrapper {
+      margin-bottom: 18px;
+    }
+
+    .alert-custom {
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+      border: 1px solid transparent;
+    }
+
+    .alert-custom.alert-success {
+      background-color: #eafaf0;
+      color: #1e9e5e;
+      border-color: #b7ebce;
+    }
+
+    .alert-custom.alert-error,
+    .alert-custom.alert-danger {
+      background-color: #fdeeee;
+      color: #d9463f;
+      border-color: #f7c6c4;
+    }
+
+    @media (max-width: 900px) {
+      .login-wrapper {
+        flex-direction: column;
+      }
+
+      .left-side {
+        padding: 20px;
+        text-align: center;
+      }
+
+      .brand {
+        justify-content: center;
+      }
+
+      .left-side p {
+        margin: 0 auto;
+      }
+
+      .login-card {
+        margin: 30px auto 0 auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-wrapper">
+
+    <div class="left-side">
+      <div class="brand">
+        <span class="brand-name">Projeto estudos Estival</span>
+      </div>
+
+      <h1>Esqueceu a senha?</h1>
+      <h2>Sem problemas, vamos te ajudar</h2>
+    </div>
+
+    <!-- Card central -->
+    <div class="login-card">
+      <a href="login.html" class="back-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 12H5" stroke="#8b87a3" stroke-width="2" stroke-linecap="round" />
+          <path d="M11 6L5 12L11 18" stroke="#8b87a3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Voltar para o login
+      </a>
+
+      <div class="icon-circle">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="11" width="18" height="10" rx="2" stroke="white" stroke-width="2" />
+          <path d="M7 11V7C7 4.79086 8.79086 3 11 3H13C15.2091 3 17 4.79086 17 7V11" stroke="white" stroke-width="2" />
+        </svg>
+      </div>
+
+      <h3>Esqueci minha senha</h3>
+      <p class="subtitle">
+        Digite seu email cadastrado e enviaremos um link para você redefinir sua senha.
+      </p>
+
+      {% if messages %}
+      <div class="messages-wrapper">
+        {% for message in messages %}
+        <div class="alert-custom alert-{{ message.tags }}">
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <form method="POST" action="">
+        {% csrf_token %}
+
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+
+        <button type="submit" class="btn btn-login">Recriar Senha</button>
+      </form>
+
+      <p class="signup-text">
+        Lembrou a senha? <a href="{% url 'login' %}">Entrar</a>
+      </p>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
