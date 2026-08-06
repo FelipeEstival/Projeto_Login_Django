@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Person
 from django.contrib.auth.hashers import make_password, check_password
+from .validar import validar_senha
 
 # Create your views here.
 def home(request):
@@ -54,9 +55,10 @@ def cadastro(request):
             messages.error(request, "Insira uma idade válida.")
             return render(request, "cadastro.html", context)
 
-        if len(password_digitado) < 5 and password_digitado.isdigit():
-            messages.error(request, "A senha deve conter letras e mais de 6 caracteres.")
-            return render(request, "cadastro.html", context)
+        password_validacao = validar_senha(password_digitado)
+        if password_validacao != "sucesso":
+             messages.error(request, password_validacao)
+             return render(request, "cadastro.html", context)
 
         try:
             Usuario = Person(

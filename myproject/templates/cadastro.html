@@ -245,19 +245,19 @@
 
             <label for="nome" class="form-label">Nome Completo</label>
             <input type="text" class="form-control" id="nome" placeholder="Digite seu nome completo" 
-            required name="name">
+            required name="name" value={{name}}>
 
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" placeholder="seuemail@exemplo.com" required
-            name="email" >
+            name="email" value={{email}}>
 
             <label for="password" class="form-label">Senha</label>
             <input type="password" class="form-control" id="password" placeholder="Digite sua senha" required
-            name="password" >
+            name="password">
 
             <label for="idade" class="form-label">Idade</label>
             <input type="number" class="form-control" id="idade" placeholder="Digite sua idade" min="0" required
-            name="age">
+            name="age" value={{age}}>
 
             <button type="submit" class="btn btn-login">Cadastrar</button>
 
