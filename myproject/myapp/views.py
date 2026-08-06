@@ -27,7 +27,7 @@ def cadastro(request):
     if request.method == "POST":
         name_digitado = request.POST.get("name").strip()
         email_digitado = request.POST.get("email").strip().lower()
-        password_digitado = request.POST.get("password")
+        password_digitado = request.POST.get("password").strip()
         age_digitado = request.POST.get("age")
 
         context = {
@@ -52,6 +52,10 @@ def cadastro(request):
         age_num = int(age_digitado)
         if age_num < 18 or age_num > 120:
             messages.error(request, "Insira uma idade válida.")
+            return render(request, "cadastro.html", context)
+
+        if len(password_digitado) < 5 and password_digitado.isdigit():
+            messages.error(request, "A senha deve conter letras e mais de 6 caracteres.")
             return render(request, "cadastro.html", context)
 
         try:
